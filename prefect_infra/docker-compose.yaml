@@ -68,10 +68,8 @@ services:
         condition: service_healthy
     environment:
       PREFECT_API_URL: "http://prefect-server:4200/api"
-    volumes:
-      - ~/.ssh:/root/.ssh:ro
     command: >
-      bash -c "apt-get update && apt-get install -y git openssh-client &&
-               pip install requests &&
+      bash -c "apt-get update && apt-get install -y git &&
+               pip install requests prefect-gitlab &&
                prefect worker start --pool no-docker-pool --type process"
     restart: on-failure

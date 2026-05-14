@@ -5,4 +5,4 @@ PREFECT_API_URL ?= http://localhost:4200/api
 .PHONY: deploy
 
 deploy:
-	. "$(VENV_DIR)/bin/activate" && PREFECT_API_URL=$(PREFECT_API_URL) prefect deploy --all
+	cd "$(PROJECT_DIR)" && . "$(VENV_DIR)/bin/activate" && PREFECT_API_URL=$(PREFECT_API_URL) prefect deploy --all

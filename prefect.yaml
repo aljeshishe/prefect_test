@@ -1,8 +1,8 @@
 pull:
   - prefect.deployments.steps.git_clone:
-      repository: git@gitlab.alberblanc.com:aleksei.grachev/prefect_server.git
+      repository: https://gitlab.alberblanc.com/aleksei.grachev/prefect_server.git
       branch: master
-      access_token: null
+      credentials: "{{ prefect.blocks.gitlab-credentials.prefect-server-gitlab-creds }}"
 
 deployments:
   - name: fetch-google-no-docker
