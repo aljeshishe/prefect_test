@@ -6,10 +6,9 @@ PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 make -C "$PROJECT_DIR/prefect_infra" install
 make -C "$PROJECT_DIR/prefect_infra" up
 
+make -C "$PROJECT_DIR/prefect_infra" setup-pool
+
 source "$PROJECT_DIR/.venv/bin/activate"
-
-"$PROJECT_DIR/scripts/setup_pool.sh"
-
 make -C "$PROJECT_DIR/flows" deploy
 
 echo ""
