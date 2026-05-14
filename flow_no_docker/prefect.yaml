@@ -1,0 +1,13 @@
+pull:
+  - prefect.deployments.steps.git_clone:
+      repository: git@gitlab.alberblanc.com:aleksei.grachev/prefect_server.git
+      branch: master
+      access_token: null
+
+deployments:
+  - name: fetch-google-no-docker
+    entrypoint: flow_no_docker/fetch_google.py:fetch_google
+    work_pool:
+      name: no-docker-pool
+    schedule:
+      interval: 60

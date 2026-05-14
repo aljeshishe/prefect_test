@@ -2,7 +2,9 @@ PROJECT_DIR := $(shell cd .. && pwd)
 VENV_DIR := $(PROJECT_DIR)/.venv
 PREFECT_API_URL ?= http://localhost:4200/api
 
-.PHONY: install up down
+WORK_POOL_NAME ?= docker-pool
+
+.PHONY: install up down setup-pool setup-pool-no-docker
 
 install:
 	@if [ ! -d "$(VENV_DIR)" ]; then uv venv --python 3.10 "$(VENV_DIR)"; fi
@@ -25,3 +27,10 @@ up:
 
 down:
 	docker compose down
+
+setup-pool:
+	. "$(VENV_DIR)/bin/activate" && prefect work-pool create "$(WORK_POOL_NAME)" --type docker 2>/dev/null || echo "Work pool already exists."
+	. "$(VENV_DIR)/bin/activate" && python3 setup_pool.py
+
+setup-pool-no-docker:
+	. "$(VENV_DIR)/bin/activate" && prefect work-pool create "no-docker-pool" --type process 2>/dev/null || echo "Work pool 'no-docker-pool' already exists."

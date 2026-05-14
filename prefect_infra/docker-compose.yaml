@@ -58,3 +58,20 @@ services:
       bash -c "pip install prefect-docker &&
                prefect worker start --pool docker-pool --type docker"
     restart: on-failure
+
+  prefect-worker-no-docker:
+    image: prefecthq/prefect:3-latest
+    networks:
+      - prefect-network
+    depends_on:
+      prefect-server:
+        condition: service_healthy
+    environment:
+      PREFECT_API_URL: "http://prefect-server:4200/api"
+    volumes:
+      - ~/.ssh:/root/.ssh:ro
+    command: >
+      bash -c "apt-get update && apt-get install -y git openssh-client &&
+               pip install requests &&
+               prefect worker start --pool no-docker-pool --type process"
+    restart: on-failure
