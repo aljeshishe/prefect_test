@@ -1,7 +1,7 @@
 pull:
   - prefect.deployments.steps.git_clone:
       repository: https://gitlab.alberblanc.com/aleksei.grachev/prefect_server.git
-      branch: flow-no-docker
+      branch: master
       credentials: "{{ prefect.blocks.gitlab-credentials.prefect-server-gitlab-creds }}"
 
 deployments:
